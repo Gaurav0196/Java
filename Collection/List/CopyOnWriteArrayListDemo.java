@@ -49,9 +49,10 @@ public class CopyOnWriteArrayListDemo {
                 shoppingList.add("Butter");
                 System.out.println("Added Butter while reading");
 
+
                 // This works with copyOnWrite arraylist
 
-                // Once lop is finished the new item will be added to our list. As it reads on snapshot of list
+                // Once loop is finished the new item will be added to our list. As it reads on snapshot of list
             }
         }
         // old=new
