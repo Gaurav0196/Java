@@ -1,0 +1,17 @@
+In multithreaded environment,thread often need to communicate and coordinate withe each other
+to accomplish a task.
+
+Without proper communication mechanism ,threads might end up in inefficient busy-waiting state,
+leading to wastage of CPU resources and potential deadlocks.
+
+
+methods for interThread communication:
+These methods can only be called within synchronized context
+
+1. wait()-> tells current thread to release the lock and wait until some other thread runs notify or notifyall
+2.notify()-> wakes up a single thread that is waiting
+3.notifyall()-> wakes up all thread that are waiting
+
+
+// Thread Safety:-Whenever multiple threads tries to access an object in java and there is no wrong data
+or race condition occurring  then we can call tha t object thread safe.

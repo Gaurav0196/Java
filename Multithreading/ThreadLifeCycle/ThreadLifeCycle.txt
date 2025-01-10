@@ -1,0 +1,100 @@
+The lifecycle of a thread in java consists of several states, which a thread
+can move through during its execution.
+
+New-> A thread is in this state when it is created but not yet started
+Runnable->After the start method is called,the thread becomes runnable.It's ready to run and is waiting for CPU time.
+Running-> The thread is in this state when it is executing
+Blocked/Waiting-> A thread is in this state when it is waiting for a resource or for another thread to perform
+an action
+Terminated--> A thread is in this state when it has finished executing.
+
+
+
+Certainly! Let's walk through the lifecycle of a thread using your code as an example:
+
+New State:
+
+java
+MyThread t1 = new MyThread();
+At this point, the thread t1 is created, but it hasn't started yet. It's in the "New" state.
+
+Output:
+
+NEW
+Runnable State:
+
+java
+t1.start();
+When the start() method is called, the thread moves to the "Runnable" state. The thread is now ready to run and
+waiting for the CPU to allocate it time for execution.
+
+Output:
+
+RUNNABLE
+Running State:
+
+java
+@Override
+public void run() {
+    System.out.println("RUNNING");
+    try {
+        Thread.sleep(2000);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
+}
+The thread is in the "Running" state when it actually starts executing the code inside the run() method.
+ It prints "RUNNING" and then sleeps for 2000 milliseconds (2 seconds).
+
+Timed Waiting State:
+
+java
+Thread.sleep(100); // for 100ms main method execution will be stopped so that JVM will start run method
+While the main thread sleeps for 100 milliseconds, the state of t1 will be "TIMED_WAITING"
+because the t1 thread is sleeping.
+
+Output:
+
+TIMED_WAITING
+Waiting/Blocked State:
+
+java
+t1.join(); // Main method waits for t1 thread to finish
+When the join() method is called on t1, the main thread will wait until t1 finishes its execution.
+At this time, the state of t1 would still be "TIMED_WAITING" until it completes its sleep.
+
+Output:
+
+TIMED_WAITING
+Terminated/Dead State: After the t1 thread finishes its execution,
+it moves to the "Terminated" or "Dead" state.
+
+Output:
+
+TERMINATED
+Here's the complete output sequence of the thread states:
+
+plaintext
+NEW
+RUNNABLE
+RUNNING
+TIMED_WAITING
+TIMED_WAITING
+TERMINATED
+
+
+The state of t1 is "TIMED_WAITING" when the main thread sleeps for 100 milliseconds
+because of the way the JVM schedules and manages threads.
+
+When you call Thread.sleep(100) in the main thread, the main thread itself goes into the "TIMED_WAITING"
+state for 100 milliseconds. During this period, the JVM gives the CPU time to other runnable threads,
+including t1. This means the t1 thread starts executing its run() method almost immediately
+after the main thread goes to sleep, causing the state of t1 to change to "RUNNING."
+
+However, the t1 thread also has a Thread.sleep(2000) call within its run() method, making t1 go into
+ the "TIMED_WAITING" state for 2000 milliseconds. So, when the main thread wakes up after 100 milliseconds
+ and checks the state of t1, the t1 thread is still in its own "TIMED_WAITING" state because it's sleeping
+ for 2000 milliseconds.
+
+In short, the main thread sleeping for 100 milliseconds allows t1 to start running, but since t1 itself sleeps
+for 2000 milliseconds, its state is "TIMED_WAITING" when the main thread checks its state.

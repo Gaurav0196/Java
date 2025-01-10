@@ -1,0 +1,55 @@
+Intrinsic Lock-=->These are built into every object in java .You don't see them,but they're there.
+                  When you use a synchronized keyword,you're using these automatic locks
+
+
+Explicit Lock--> These are more advanced locks you can control yourself using the Lock class
+                 from java.util.concurrent.locks. You explicitly say when to lock and unlock,giving
+                 you more control over how and when people can write in the notebook
+
+
+// Using Synchronized keyword we don't have control like which thread will execute first and how much time
+   thread will run inside synchronized block and method where Locks provide this
+
+
+Lock-> Lock is an interface. whichever thread acquires this lock will be able to access critical section
+       Lock methods;
+       lock()--> trying to acquire lock
+       unlock()-->
+       trylock()-->acquires the lock only if it is tree during the time of invocation.if not free return false
+       tryLock(time,TimeUnit.Milliseconds)-> acquires the lock within given wait time and current thread is not
+                                             interrupted.Hence need to handle exception
+
+        lock.lockInterruptibly()_> Acquires the lock unless the current thread is interrupted.
+                                   Acquires the lock if it is available and returns immediatel
+       ReentrantLock--> it is class that implements lock interface
+
+
+
+If an InterruptedException or a ThreadDeath error is not handled properly, the information that
+the thread was interrupted will be lost. Handling this exception means either to re-throw it or manually
+re-interrupt the current thread by calling Thread.interrupt(). Simply logging the exception is not
+sufficient and counts as ignoring it. Between the moment the exception is caught and handled,
+is the right time to perform cleanup operations on the method’
+
+
+
+--->In Java, the lockInterruptibly() method is a method defined in the Lock interface.
+It is used to acquire a lock, but it allows the thread to be interrupted while waiting for the lock.
+
+    Here is how it works:
+
+    When a thread calls lockInterruptibly(), it tries to acquire the lock.
+
+    If the lock is available, it acquires it and proceeds.
+
+    If the lock is not available (i.e., some other thread holds the lock), the calling thread will wait
+    until the lock becomes available.
+
+    Unlike lock(), which blocks indefinitely while the lock is not available, lockInterruptibly() allows the
+    thread to be interrupted while it is waiting for the lock.
+
+
+    If the thread is interrupted while it is waiting for the lock, it will throw an InterruptedException.
+    This allows the thread to be responsive to interrupts during the lock acquisition process.
+
+
