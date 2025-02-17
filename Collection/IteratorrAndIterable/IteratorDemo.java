@@ -50,6 +50,7 @@ public class IteratorDemo {
             if(number==3){
                // integers.add(7); // concurrent modification exception
                 // only remove on iterator allowed
+                 listIterator.add(7); // Works well with listIterator
             }
 
 
